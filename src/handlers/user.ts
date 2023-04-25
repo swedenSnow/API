@@ -27,6 +27,6 @@ export const signin = async (req, res) => {
 		res.json({message: 'Nope!'})
 	};
 
-	const token = createJWT(user);
+	const token = createJWT(user); 
 	res.json({ token });
 };
