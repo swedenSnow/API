@@ -1,7 +1,19 @@
 import { Router } from 'express';
 import { body, validationResult, oneOf } from 'express-validator';
-import { createProduct, deleteProduct, getOneProduct, getProducts, updateProduct } from './handlers/product';
-import { createUpdate, deleteUpdate, getOneUpdate, getUpdates, updateUpdate } from './handlers/update';
+import {
+    createProduct,
+    deleteProduct,
+    getOneProduct,
+    getProducts,
+    updateProduct,
+} from './handlers/product';
+import {
+    createUpdate,
+    deleteUpdate,
+    getOneUpdate,
+    getUpdates,
+    updateUpdate,
+} from './handlers/update';
 import { handleInputsErrors } from './modules/middleware';
 
 const router = Router();
@@ -46,7 +58,7 @@ router.post(
     body('title').exists().isString(),
     body('body').exists().isString(),
     body('productId').exists().isString(),
-    createUpdate 
+    createUpdate
 );
 router.delete('/update/:id', deleteUpdate);
 
@@ -70,5 +82,10 @@ router.post(
     () => {}
 );
 router.delete('/updatepoint/:id', () => {});
+
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send({ error: 'Something went wrong!' });
+});
 
 export default router;

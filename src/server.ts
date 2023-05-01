@@ -24,14 +24,28 @@ app.use(express.urlencoded({ extended: true }));
 
 // })
 
-app.get('/', (req, res) => {
-console.log('helllo from express');
-	res.status(200)
-  	res.send('Hello World!');
+// app.get('/', (req, res) => {
+// console.log('helllo from express');
+// 	res.status(200)
+//   	res.send('Hello World!');
+// });
+app.get('/', (req, res, next) => {
+	setTimeout(() => {
+		 next(new Error('Not Found'));
+	}, 1)
 });
 
 app.use('/api', protect, router);
 app.post('/user', createNewUser);
 app.post('/signin', signin);
+app.use((err, req, res, next) => {
+	if(err.type === 'auth') {
+		res.status(401).json({message: 'Unauthorized'});
+	} else if(err.type === 'input') {
+		res.status(400).json({message: "Invalid input"});
+	} else {
+		res.status(500).json({message: "Oops! Something went wrong. Thats on us :("});
+	}
+})
 
 export default app;
