@@ -3,7 +3,7 @@ import router from './router';
 import morgan from 'morgan';
 import cors from 'cors';
 import { protect } from './modules/auth';
-import { createNewUser, signin } from './handlers/user';
+import { createNewUser, deleteUser, signin } from './handlers/user';
 
 const app = express();
 
@@ -30,14 +30,15 @@ app.use(express.urlencoded({ extended: true }));
 //   	res.send('Hello World!');
 // });
 app.get('/', (req, res, next) => {
-	setTimeout(() => {
-		 next(new Error('Not Found'));
-	}, 1)
+	res.json({message: 'hello!'})
 });
 
 app.use('/api', protect, router);
+
 app.post('/user', createNewUser);
 app.post('/signin', signin);
+app.delete('/userdelete', deleteUser);
+
 app.use((err, req, res, next) => {
 	if(err.type === 'auth') {
 		res.status(401).json({message: 'Unauthorized'});

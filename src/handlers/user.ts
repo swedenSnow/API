@@ -56,3 +56,20 @@ export const signin = async (req, res, next) => {
         next(e);
     }
 };
+
+export const deleteUser = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        const deletedUser = await prisma.user.delete({
+            where: {
+               id,
+
+            },
+        });
+        const { createdAt, username, id:_id, } = deletedUser;
+        res.json({ createdAt, username, id });
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
+};
