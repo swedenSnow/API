@@ -67,5 +67,6 @@ export const deleteProduct = async (req, res) => {
 			}
         }
     });
+	// res.json({ data: deleted }).sendStatus(204);
 	res.json({ data: deleted });
 };

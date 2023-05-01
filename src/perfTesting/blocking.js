@@ -13,5 +13,5 @@ const read = async () => {
 
 read().then(file => console.log(file));
 // console.log(result);
-console.log('2nd');
+console.log('2nd ');
 // console.log(first)

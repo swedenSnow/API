@@ -17,14 +17,11 @@ if (stage === 'production') {
 }
 
 const defaultConfig = {
-	stage,
-	jwt: process.env.JWT_SECRET,
-	dbUrl: process.env.DATABASE_URL,
-	port: process.env.PORT,
-	logging: false,
-}
+    stage,
+    jwt: process.env.JWT_SECRET,
+    dbUrl: process.env.DATABASE_URL,
+    port: process.env.PORT,
+    logging: false,
+};
 
-export default merge(
-	defaultConfig,
-    envConfig
-);
+export default merge(defaultConfig, envConfig);
